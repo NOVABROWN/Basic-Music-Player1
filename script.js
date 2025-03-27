@@ -11,7 +11,7 @@ const cover = document.getElementById("cover");
 // Song List
 const songs = [
     { title: "Can't Help Falling in Love", artist: " Elvis Presley ", src: "song1.mp3", cover: "https://github.com/NOVABROWN/Basic-Music-Player1/blob/main/img/artworks-000489245394-tptkbg-t1080x1080.jpg" },
-    { title: "this is what slow dancing feels like", artist: "JVKE", src: "song2.mp3", cover: "cover2.jpg" }
+    { title: "this is what slow dancing feels like", artist: "JVKE", src: "song2.mp3", cover: "https://github.com/NOVABROWN/Basic-Music-Player1/blob/main/img/94abf4a403e06185971f8981d3a54b53.1000x1000x1.png" }
 ];
 
 let songIndex = 0;
