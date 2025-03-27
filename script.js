@@ -1,14 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const playButton = document.getElementById("playButton");
-    const playPauseButton = document.getElementById("playPauseButton");
-    let isPlaying = false;
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("play");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const progress = document.getElementById("progress");
+const volume = document.getElementById("volume");
+const title = document.getElementById("title");
+const artist = document.getElementById("artist");
+const cover = document.getElementById("cover");
 
-    function togglePlay() {
-        isPlaying = !isPlaying;
-        playButton.textContent = isPlaying ? "Pause" : "Listen Now";
-        playPauseButton.textContent = isPlaying ? "Pause" : "Play";
+// Song List
+const songs = [
+    { title: "Can't Help Falling in Love", artist: " Elvis Presley ", src: "song1.mp3", cover: "cover1.jpg" },
+    { title: "this is what slow dancing feels like", artist: "JVKE", src: "song2.mp3", cover: "cover2.jpg" }
+];
+
+let songIndex = 0;
+
+// Load Song
+function loadSong(song) {
+    title.innerText = song.title;
+    artist.innerText = song.artist;
+    audio.src = song.src;
+    cover.src = song.cover;
+}
+
+// Play & Pause
+function togglePlay() {
+    if (audio.paused) {
+        audio.play();
+        playBtn.innerHTML = '<img src="pause.png">';
+    } else {
+        audio.pause();
+        playBtn.innerHTML = '<img src="play.png">';
     }
+}
 
-    playButton.addEventListener("click", togglePlay);
-    playPauseButton.addEventListener("click", togglePlay);
+// Next & Previous
+function nextSong() {
+    songIndex = (songIndex + 1) % songs.length;
+    loadSong(songs[songIndex]);
+    audio.play();
+}
+
+function prevSong() {
+    songIndex = (songIndex - 1 + songs.length) % songs.length;
+    loadSong(songs[songIndex]);
+    audio.play();
+}
+
+// Progress Bar
+audio.addEventListener("timeupdate", () => {
+    progress.value = (audio.currentTime / audio.duration) * 100;
 });
+
+progress.addEventListener("input", () => {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+});
+
+// Volume Control
+volume.addEventListener("input", () => {
+    audio.volume = volume.value;
+});
+
+// Event Listeners
+playBtn.addEventListener("click", togglePlay);
+nextBtn.addEventListener("click", nextSong);
+prevBtn.addEventListener("click", prevSong);
+
+// Load First Song
+loadSong(songs[songIndex]);
